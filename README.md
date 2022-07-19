@@ -12,7 +12,7 @@ Currently, there are multiple subgraphs, but additional subgraphs can be added t
 
 3. **[Pairs](https://thegraph.com/legacy-explorer/subgraph/plexswap/pairs)**: Tracks all PlexSwap Pairs and Tokens.
 
-4. **[ChiefFarmer (v2)](https://thegraph.com/hosted-service/subgraph/plexswap/chieffarmer-v2)**: Tracks data for ChiefFarmer.
+4. **[ChiefFarmer](https://thegraph.com/hosted-service/subgraph/plexswap/chieffarmer-v2)**: Tracks data for ChiefFarmer.
 
 
 ## Dependencies
