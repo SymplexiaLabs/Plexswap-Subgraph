@@ -1,0 +1,42 @@
+specVersion: 0.0.3
+description: ChiefFarmer
+repository: https://github.com/plexswap/plexswapswap-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ChiefFarmer
+    network: bsc
+    source:
+      address: "0xa5f8C5Dbd5F286960b9d90548680aE5ebFf07652"
+      abi: ChiefFarmer
+      startBlock: 17047980
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappings/chieffarmer.ts
+      entities:
+        - ChiefFarmer
+        - Pool
+        - User
+      abis:
+        - name: ChiefFarmer
+          file: ./abis/ChiefFarmer.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed uint256,uint256)
+          handler: handleDeposit
+        - event: Withdraw(indexed address,indexed uint256,uint256)
+          handler: handleWithdraw
+        - event: EmergencyWithdraw(indexed address,indexed uint256,uint256)
+          handler: handleEmergencyWithdraw
+        - event: AddPool(indexed uint256,uint256,indexed address,bool)
+          handler: handleAddPool
+        - event: SetPool(indexed uint256,uint256)
+          handler: handleSetPool
+        - event: UpdatePool(indexed uint256,uint256,uint256,uint256)
+          handler: handleUpdatePool
+        - event: UpdateBoostMultiplier(indexed address,uint256,uint256,uint256)
+          handler: handleUpdateBoostMultiplier
+        - event: UpdateWayaRate(uint256,uint256,uint256)
+          handler: handleUpdateWayaRate
