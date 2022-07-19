@@ -1,5 +1,5 @@
 {
-  "name": "blocks",
+  "name": "plexblocks",
   "description": "PlexSwap Subgraph",
   "version": "1.0.1",
   "repository": {
@@ -11,6 +11,6 @@
   "scripts": {
     "codegen": "graph codegen subgraph.yaml",
     "build": "graph build subgraph.yaml",
-    "deploy": "graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ plexswap/blocks subgraph.yaml"
+    "deploy": "graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ symplexialabs/plexblocks subgraph.yaml"
   }
 }
