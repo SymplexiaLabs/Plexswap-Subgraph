@@ -10,7 +10,7 @@ import {
   UpdateWayaRate,
   UpdateBoostMultiplier,
 } from "../../generated/ChiefFarmer/ChiefFarmer";
-import { getOrCreateChiefFarmer } from "../entities/master-chef";
+import { getOrCreateChiefFarmer } from "../entities/chief-farmer";
 import { getOrCreatePool } from "../entities/pool";
 import { getOrCreateUser, getBoostMultiplier } from "../entities/user";
 import { ACC_WAYA_PRECISION, BOOST_PRECISION, BI_ONE, BI_ZERO } from "../utils";

@@ -1,7 +1,7 @@
 import { BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { Pool } from "../../generated/schema";
 import { ADDRESS_ZERO, BI_ZERO } from "../utils";
-import { getOrCreateChiefFarmer } from "./master-chef";
+import { getOrCreateChiefFarmer } from "./chief-farmer";
 
 export function getOrCreatePool(pid: BigInt, block: ethereum.Block): Pool {
   const chiefFarmer = getOrCreateChiefFarmer(block);

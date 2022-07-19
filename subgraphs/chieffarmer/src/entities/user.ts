@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Pool, User } from "../../generated/schema";
 import { BigInt, Address, ethereum } from "@graphprotocol/graph-ts";
-import { getOrCreateChiefFarmer } from "./master-chef";
+import { getOrCreateChiefFarmer } from "./chief-farmer";
 import { getOrCreatePool } from "./pool";
 import { BI_ZERO, BI_ONE, BOOST_PRECISION } from "../utils";
 

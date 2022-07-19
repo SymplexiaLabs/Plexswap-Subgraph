@@ -12,7 +12,7 @@ Currently, there are multiple subgraphs, but additional subgraphs can be added t
 
 3. **[Pairs](https://thegraph.com/legacy-explorer/subgraph/plexswap/pairs)**: Tracks all PlexSwap Pairs and Tokens.
 
-4. **[ChiefFarmer](https://thegraph.com/hosted-service/subgraph/plexswap/chieffarmer-v2)**: Tracks data for ChiefFarmer.
+4. **[ChiefFarmer](https://thegraph.com/hosted-service/subgraph/plexswap/chieffarmer)**: Tracks data for ChiefFarmer.
 
 
 ## Dependencies
@@ -34,10 +34,10 @@ For any of the subgraph: `blocks` as `[subgraph]`
 
 3. Run the `yarn build` command to build the subgraph, and check compilation errors before deploying.
 
-4. Run `graph auth --product hosted-service '<ACCESS_TOKEN>'`
+4. Run `yarn graph auth --product hosted-service '<ACCESS_TOKEN>'`
 
 5. Deploy via `yarn deploy`.
 
 ## 
 
-To access subgraphs related to PlexSwap ecosystem use (https://github.com/plexswap/Plexswap-Subgraph/) branch.
+To access subgraphs related to PlexSwap ecosystem use (https://github.com/symplexia/Plexswap-Subgraph/) branch.
