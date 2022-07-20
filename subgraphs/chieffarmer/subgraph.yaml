@@ -8,7 +8,7 @@ dataSources:
     name: ChiefFarmer
     network: bsc
     source:
-      address: "0xa5f8C5Dbd5F286960b9d90548680aE5ebFf07652"
+      address: "0x4Ba4EFa9C4E44b94ea232Fd5F5f7F4A4961904e5"
       abi: ChiefFarmer
       startBlock: 17047980
     mapping:
