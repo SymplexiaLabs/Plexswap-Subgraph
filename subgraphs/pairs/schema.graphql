@@ -62,7 +62,7 @@ type Token @entity {
 }
 
 """
-PlexSwap Pairs (Waya-LP)
+PlexSwap Pairs (Plex-LP)
 """
 type Pair @entity {
   "ID (address)"
