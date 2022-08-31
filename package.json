@@ -1,7 +1,7 @@
 {
   "name": "plexswap-subgraph",
   "description": "PlexSwap Subgraph",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "repository": {
     "type": "git",
@@ -15,9 +15,9 @@
   "scripts": {
     "codegen": "lerna run codegen",
     "build": "lerna run build",
-    "format:check": "prettier --check '*/**/*.{js,ts}'",
-    "format:write": "prettier --write '*/**/*.{js,ts}'",
-    "lint": "eslint '*/**/*.{js,ts}'",
+    "format:check": "prettier --check \"*/**/*.{ts,tsx}\"",
+    "format:write": "prettier --write \"*/**/*.{ts,tsx}\"",
+    "lint": "eslint \"*/**/*.{ts,tsx}\"",
     "prepare": "husky install"
   },
   "devDependencies": {

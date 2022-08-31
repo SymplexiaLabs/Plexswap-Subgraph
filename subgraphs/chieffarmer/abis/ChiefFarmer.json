@@ -2,23 +2,18 @@
   {
     "inputs": [
       {
-        "internalType": "contract ITaskMaster",
-        "name": "_TASK_MASTER",
-        "type": "address"
-      },
-      {
-        "internalType": "contract IERC20",
-        "name": "_WAYA",
+        "internalType": "contract WayaToken",
+        "name": "_waya",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "_DUMMYPOOL_PID",
+        "name": "_wayaEmissionPerBlock",
         "type": "uint256"
       },
       {
         "internalType": "address",
-        "name": "_burnAdmin",
+        "name": "_financialController",
         "type": "address"
       }
     ],
@@ -108,12 +103,6 @@
   },
   {
     "anonymous": false,
-    "inputs": [],
-    "name": "Init",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
     "inputs": [
       {
         "indexed": true,
@@ -129,25 +118,6 @@
       }
     ],
     "name": "OwnershipTransferred",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "pid",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "allocPoint",
-        "type": "uint256"
-      }
-    ],
-    "name": "SetPool",
     "type": "event"
   },
   {
@@ -199,18 +169,24 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "address",
-        "name": "oldAdmin",
-        "type": "address"
+        "internalType": "uint256",
+        "name": "pid",
+        "type": "uint256"
       },
       {
-        "indexed": true,
-        "internalType": "address",
-        "name": "newAdmin",
-        "type": "address"
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "allocPoint",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isRegular",
+        "type": "bool"
       }
     ],
-    "name": "UpdateBurnAdmin",
+    "name": "UpdatePoolParams",
     "type": "event"
   },
   {
@@ -241,7 +217,7 @@
         "type": "uint256"
       }
     ],
-    "name": "UpdatePool",
+    "name": "UpdatePoolReward",
     "type": "event"
   },
   {
@@ -250,7 +226,7 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "burnRate",
+        "name": "reserveRate",
         "type": "uint256"
       },
       {
@@ -286,6 +262,44 @@
       }
     ],
     "name": "UpdateWhiteList",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "oldAdmin",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newAdmin",
+        "type": "address"
+      }
+    ],
+    "name": "UpdatefinancialController",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "oldWayaPerBlock",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newWayaPerBlock",
+        "type": "uint256"
+      }
+    ],
+    "name": "WayaPerBlockUpdated",
     "type": "event"
   },
   {
@@ -341,19 +355,6 @@
   },
   {
     "inputs": [],
-    "name": "DUMMYPOOL_PID",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "MAX_BOOST_PRECISION",
     "outputs": [
       {
@@ -367,51 +368,25 @@
   },
   {
     "inputs": [],
-    "name": "TASKMASTER_WAYA_PER_BLOCK",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "TASK_MASTER",
-    "outputs": [
-      {
-        "internalType": "contract ITaskMaster",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "WAYA",
-    "outputs": [
-      {
-        "internalType": "contract IERC20",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "WAYA_RATE_TOTAL_PRECISION",
     "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "WayaAddress",
+    "outputs": [
+      {
+        "internalType": "contract WayaToken",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -459,32 +434,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "burnAdmin",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bool",
-        "name": "_withUpdate",
-        "type": "bool"
-      }
-    ],
-    "name": "burnWaya",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -516,6 +465,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "financialController",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -540,33 +502,83 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "harvestFromTaskMaster",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "contract IERC20",
-        "name": "dummyToken",
+        "name": "_newPool",
         "type": "address"
       }
     ],
-    "name": "init",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "name": "isPoolRegistered",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "lastBurnedBlock",
+    "name": "lastAccruedBlock",
     "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pid",
+        "type": "uint256"
+      }
+    ],
+    "name": "linkedPoolInfo",
+    "outputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "_lpTokenAddress",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "accWayaPerShare",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "lastRewardBlock",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "allocPoint",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalBoostedShare",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isRegular",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct ChiefFarmer.PoolInfo",
+        "name": "_poolInfo",
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -697,22 +709,12 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "_pid",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_allocPoint",
-        "type": "uint256"
-      },
-      {
         "internalType": "bool",
         "name": "_withUpdate",
         "type": "bool"
       }
     ],
-    "name": "set",
+    "name": "reserveWaya",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -795,12 +797,27 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_newAdmin",
-        "type": "address"
+        "internalType": "uint256",
+        "name": "_pid",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_allocPoint",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_isRegular",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "_withUpdate",
+        "type": "bool"
       }
     ],
-    "name": "updateBurnAdmin",
+    "name": "updatePoolParams",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -813,7 +830,7 @@
         "type": "uint256"
       }
     ],
-    "name": "updatePool",
+    "name": "updatePoolReward",
     "outputs": [
       {
         "components": [
@@ -855,7 +872,20 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_burnRate",
+        "name": "_newWayaPerBlock",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateWayaPerBlock",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_reserveRate",
         "type": "uint256"
       },
       {
@@ -900,6 +930,19 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_newAdmin",
+        "type": "address"
+      }
+    ],
+    "name": "updatefinancialController",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
@@ -932,40 +975,8 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "bool",
-        "name": "_isRegular",
-        "type": "bool"
-      }
-    ],
+    "inputs": [],
     "name": "wayaPerBlock",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "wayaPerBlockToBurn",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "wayaRateToBurn",
     "outputs": [
       {
         "internalType": "uint256",
@@ -979,6 +990,19 @@
   {
     "inputs": [],
     "name": "wayaRateToRegularFarm",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "wayaRateToReserve",
     "outputs": [
       {
         "internalType": "uint256",

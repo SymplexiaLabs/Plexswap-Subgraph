@@ -4,8 +4,8 @@ import {
   AddPool,
   Deposit,
   EmergencyWithdraw,
-  SetPool,
-  UpdatePool,
+  UpdatePoolParams,
+  UpdatePoolReward,
   Withdraw,
   UpdateWayaRate,
   UpdateBoostMultiplier,
@@ -40,8 +40,11 @@ export function handleAddPool(event: AddPool): void {
   chiefFarmer.save();
 }
 
-export function handleSetPool(event: SetPool): void {
-  log.info("[ChiefFarmer] ˝Set Pool {} {}", [event.params.pid.toString(), event.params.allocPoint.toString()]);
+export function handleUpdatePoolParams(event: UpdatePoolParams): void {
+  log.info("[ChiefFarmer] ˝Update Pool Params {} {}", [
+    event.params.pid.toString(),
+    event.params.allocPoint.toString(),
+  ]);
 
   const chiefFarmer = getOrCreateChiefFarmer(event.block);
   const pool = getOrCreatePool(event.params.pid, event.block);
@@ -62,8 +65,8 @@ export function handleSetPool(event: SetPool): void {
   pool.save();
 }
 
-export function handleUpdatePool(event: UpdatePool): void {
-  log.info("[ChiefFarmer] Update Pool {} {} {} {}", [
+export function handleUpdatePoolReward(event: UpdatePoolReward): void {
+  log.info("[ChiefFarmer] Update Pool Reward {} {} {} {}", [
     event.params.pid.toString(),
     event.params.lastRewardBlock.toString(),
     event.params.lpSupply.toString(),
@@ -163,14 +166,14 @@ export function handleEmergencyWithdraw(event: EmergencyWithdraw): void {
 
 export function handleUpdateWayaRate(event: UpdateWayaRate): void {
   log.info("[ChiefFarmer] Update Waya Rate {} {} {}", [
-    event.params.burnRate.toString(),
+    event.params.reserveRate.toString(),
     event.params.regularFarmRate.toString(),
     event.params.specialFarmRate.toString(),
   ]);
 
   const chiefFarmer = getOrCreateChiefFarmer(event.block);
 
-  chiefFarmer.wayaRateToBurn = event.params.burnRate;
+  chiefFarmer.wayaRateToReserve = event.params.reserveRate;
   chiefFarmer.wayaRateToRegularFarm = event.params.regularFarmRate;
   chiefFarmer.wayaRateToSpecialFarm = event.params.specialFarmRate;
 

@@ -4,7 +4,7 @@ type ChiefFarmer @entity {
 
   totalRegularAllocPoint: BigInt!
   totalSpecialAllocPoint: BigInt!
-  wayaRateToBurn: BigInt!
+  wayaRateToReserve: BigInt!
   wayaRateToRegularFarm: BigInt!
   wayaRateToSpecialFarm: BigInt!
 

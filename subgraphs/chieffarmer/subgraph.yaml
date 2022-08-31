@@ -32,10 +32,10 @@ dataSources:
           handler: handleEmergencyWithdraw
         - event: AddPool(indexed uint256,uint256,indexed address,bool)
           handler: handleAddPool
-        - event: SetPool(indexed uint256,uint256)
-          handler: handleSetPool
-        - event: UpdatePool(indexed uint256,uint256,uint256,uint256)
-          handler: handleUpdatePool
+        - event: UpdatePoolParams(indexed uint256,uint256,bool)
+          handler: handleUpdatePoolParams
+        - event: UpdatePoolReward(indexed uint256,uint256,uint256,uint256)
+          handler: handleUpdatePoolReward
         - event: UpdateBoostMultiplier(indexed address,uint256,uint256,uint256)
           handler: handleUpdateBoostMultiplier
         - event: UpdateWayaRate(uint256,uint256,uint256)
