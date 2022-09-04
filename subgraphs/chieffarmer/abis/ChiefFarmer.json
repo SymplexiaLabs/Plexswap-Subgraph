@@ -3,12 +3,12 @@
     "inputs": [
       {
         "internalType": "contract WayaToken",
-        "name": "_waya",
+        "name": "_wayaAddress",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "_wayaEmissionPerBlock",
+        "name": "_emissionPerBlock",
         "type": "uint256"
       },
       {
@@ -99,6 +99,25 @@
       }
     ],
     "name": "EmergencyWithdraw",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "oldEmissionPerBlock",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newEmissionPerBlock",
+        "type": "uint256"
+      }
+    ],
+    "name": "EmissionPerBlockUpdated",
     "type": "event"
   },
   {
@@ -287,25 +306,6 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "oldWayaPerBlock",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "newWayaPerBlock",
-        "type": "uint256"
-      }
-    ],
-    "name": "WayaPerBlockUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
         "indexed": true,
         "internalType": "address",
         "name": "user",
@@ -368,12 +368,12 @@
   },
   {
     "inputs": [],
-    "name": "WAYA_RATE_TOTAL_PRECISION",
+    "name": "WAYA",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "contract WayaToken",
         "name": "",
-        "type": "uint256"
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -381,12 +381,12 @@
   },
   {
     "inputs": [],
-    "name": "WayaAddress",
+    "name": "WAYA_RATE_TOTAL_PRECISION",
     "outputs": [
       {
-        "internalType": "contract WayaToken",
+        "internalType": "uint256",
         "name": "",
-        "type": "address"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -462,6 +462,19 @@
     "name": "emergencyWithdraw",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "emissionPerBlock",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -798,6 +811,32 @@
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "_newEmissionPerBlock",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateEmissionPerBlock",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_newFC",
+        "type": "address"
+      }
+    ],
+    "name": "updateFinancialController",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
         "name": "_pid",
         "type": "uint256"
       },
@@ -872,19 +911,6 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_newWayaPerBlock",
-        "type": "uint256"
-      }
-    ],
-    "name": "updateWayaPerBlock",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
         "name": "_reserveRate",
         "type": "uint256"
       },
@@ -930,19 +956,6 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_newAdmin",
-        "type": "address"
-      }
-    ],
-    "name": "updatefinancialController",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
@@ -975,12 +988,31 @@
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "_isRegular",
+        "type": "bool"
+      }
+    ],
     "name": "wayaPerBlock",
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "wayaPerBlockToReserve",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
         "type": "uint256"
       }
     ],
