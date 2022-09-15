@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/symplexia/Plexswap-Subgraph.git"
   },
-  "author": "PlexSwap",
+  "author": "Symplexia Labs",
   "license": "MIT",
   "workspaces": [
     "subgraphs/**/*"

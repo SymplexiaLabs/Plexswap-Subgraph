@@ -5,7 +5,7 @@ import { Pair, Bundle, Token, PlexFactory, PlexDayData, PairDayData, TokenDayDat
 import { ONE_BI, ZERO_BD, ZERO_BI, FACTORY_ADDRESS } from "./utils";
 
 export function updatePlexDayData(event: ethereum.Event): PlexDayData {
-  let plex = PlexFactory.load(FACTORY_ADDRESS);
+  let factory = PlexFactory.load(FACTORY_ADDRESS);
   let timestamp = event.block.timestamp.toI32();
   let dayID = timestamp / 86400;
   let dayStartTimestamp = dayID * 86400;
@@ -20,9 +20,9 @@ export function updatePlexDayData(event: ethereum.Event): PlexDayData {
     plexDayData.totalVolumeBNB = ZERO_BD;
     plexDayData.dailyVolumeUntracked = ZERO_BD;
   }
-  plexDayData.totalLiquidityUSD = plex.totalLiquidityUSD;
-  plexDayData.totalLiquidityBNB = plex.totalLiquidityBNB;
-  plexDayData.totalTransactions = plex.totalTransactions;
+  plexDayData.totalLiquidityUSD = factory.totalLiquidityUSD;
+  plexDayData.totalLiquidityBNB = factory.totalLiquidityBNB;
+  plexDayData.totalTransactions = factory.totalTransactions;
   plexDayData.save();
 
   return plexDayData as PlexDayData;

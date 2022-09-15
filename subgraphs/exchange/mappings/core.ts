@@ -165,10 +165,10 @@ export function handleSync(event: Sync): void {
   let pair = Pair.load(event.address.toHex());
   let token0 = Token.load(pair.token0);
   let token1 = Token.load(pair.token1);
-  let plex = PlexFactory.load(FACTORY_ADDRESS);
+  let factory = PlexFactory.load(FACTORY_ADDRESS);
 
   // reset factory liquidity by subtracting only tracked liquidity
-  plex.totalLiquidityBNB = plex.totalLiquidityBNB.minus(pair.trackedReserveBNB as BigDecimal);
+  factory.totalLiquidityBNB = factory.totalLiquidityBNB.minus(pair.trackedReserveBNB as BigDecimal);
 
   // reset token total liquidity amounts
   token0.totalLiquidity = token0.totalLiquidity.minus(pair.reserve0);
@@ -218,8 +218,8 @@ export function handleSync(event: Sync): void {
   pair.reserveUSD = pair.reserveBNB.times(bundle.bnbPrice);
 
   // use tracked amounts globally
-  plex.totalLiquidityBNB = plex.totalLiquidityBNB.plus(trackedLiquidityBNB);
-  plex.totalLiquidityUSD = plex.totalLiquidityBNB.times(bundle.bnbPrice);
+  factory.totalLiquidityBNB = factory.totalLiquidityBNB.plus(trackedLiquidityBNB);
+  factory.totalLiquidityUSD = factory.totalLiquidityBNB.times(bundle.bnbPrice);
 
   // now correctly set liquidity amounts for each token
   token0.totalLiquidity = token0.totalLiquidity.plus(pair.reserve0);
@@ -227,7 +227,7 @@ export function handleSync(event: Sync): void {
 
   // save entities
   pair.save();
-  plex.save();
+  factory.save();
   token0.save();
   token1.save();
 }
@@ -238,7 +238,7 @@ export function handleMint(event: Mint): void {
   let mint = MintEvent.load(mints[mints.length - 1]);
 
   let pair = Pair.load(event.address.toHex());
-  let plex = PlexFactory.load(FACTORY_ADDRESS);
+  let factory = PlexFactory.load(FACTORY_ADDRESS);
 
   let token0 = Token.load(pair.token0);
   let token1 = Token.load(pair.token1);
@@ -260,13 +260,13 @@ export function handleMint(event: Mint): void {
 
   // update txn counts
   pair.totalTransactions = pair.totalTransactions.plus(ONE_BI);
-  plex.totalTransactions = plex.totalTransactions.plus(ONE_BI);
+  factory.totalTransactions = factory.totalTransactions.plus(ONE_BI);
 
   // save entities
   token0.save();
   token1.save();
   pair.save();
-  plex.save();
+  factory.save();
 
   mint.sender = event.params.sender;
   mint.amount0 = token0Amount as BigDecimal;
@@ -292,7 +292,7 @@ export function handleBurn(event: Burn): void {
   let burn = BurnEvent.load(burns[burns.length - 1]);
 
   let pair = Pair.load(event.address.toHex());
-  let plex = PlexFactory.load(FACTORY_ADDRESS);
+  let factory = PlexFactory.load(FACTORY_ADDRESS);
 
   //update token info
   let token0 = Token.load(pair.token0);
@@ -312,14 +312,14 @@ export function handleBurn(event: Burn): void {
     .times(bundle.bnbPrice);
 
   // update txn counts
-  plex.totalTransactions = plex.totalTransactions.plus(ONE_BI);
+  factory.totalTransactions = factory.totalTransactions.plus(ONE_BI);
   pair.totalTransactions = pair.totalTransactions.plus(ONE_BI);
 
   // update global counter and save
   token0.save();
   token1.save();
   pair.save();
-  plex.save();
+  factory.save();
 
   // update burn
   // burn.sender = event.params.sender
@@ -399,17 +399,17 @@ export function handleSwap(event: Swap): void {
   pair.save();
 
   // update global values, only used tracked amounts for volume
-  let plex = PlexFactory.load(FACTORY_ADDRESS);
-  plex.totalVolumeUSD = plex.totalVolumeUSD.plus(trackedAmountUSD);
-  plex.totalVolumeBNB = plex.totalVolumeBNB.plus(trackedAmountBNB);
-  plex.untrackedVolumeUSD = plex.untrackedVolumeUSD.plus(derivedAmountUSD);
-  plex.totalTransactions = plex.totalTransactions.plus(ONE_BI);
+  let factory = PlexFactory.load(FACTORY_ADDRESS);
+  factory.totalVolumeUSD = factory.totalVolumeUSD.plus(trackedAmountUSD);
+  factory.totalVolumeBNB = factory.totalVolumeBNB.plus(trackedAmountBNB);
+  factory.untrackedVolumeUSD = factory.untrackedVolumeUSD.plus(derivedAmountUSD);
+  factory.totalTransactions = factory.totalTransactions.plus(ONE_BI);
 
   // save entities
   pair.save();
   token0.save();
   token1.save();
-  plex.save();
+  factory.save();
 
   let transaction = Transaction.load(event.transaction.hash.toHex());
   if (transaction === null) {

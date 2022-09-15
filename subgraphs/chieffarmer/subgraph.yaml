@@ -8,9 +8,9 @@ dataSources:
     name: ChiefFarmer
     network: bsc
     source:
-      address: "0x4Ba4EFa9C4E44b94ea232Fd5F5f7F4A4961904e5"
+      address: "0x4D4408eA016357BB334eAd40F14dcF0dfd164Dbe"
       abi: ChiefFarmer
-      startBlock: 17047980
+      startBlock: 19264261
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
